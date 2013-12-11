@@ -1,0 +1,3 @@
+import math
+end = math.floor(math.sqrt(600851475143))
+print end
