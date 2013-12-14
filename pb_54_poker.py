@@ -19,11 +19,7 @@ comparer les index
 si egaux, comparer les cartes
 '''
 
-def getHandValue(hand):
-	for func in orderOfHands:
-		if func(hand) != False:
-			best = orderOfHands.index(func)
-			return (best, func(hand)[1])
+
 
 # All functions will return a set with a boolean and when necessary, a list of values
 # list of values will contain first the most important cards, etc
@@ -101,6 +97,8 @@ def isStraight(hand):
 	values = sorted(values, key= lambda figure: orderOfCards.index(figure))
 	if isSublist(values,orderOfCards):
 		return (True, values)
+	else:
+		return False
 
 # Three of a Kind: Three cards of the same value.
 def isThreeOfAKind(hand):
@@ -165,11 +163,15 @@ def highestCard(hand):
 	values = sorted(values, key= lambda figure: orderOfCards.index(figure)) 
 	return (True, values)
 
-
-
 orderOfCards = ['A','K','Q','J','T','9','8','7','6','5','4','3','2']
 orderOfHands = [isRoyalFlush, isStraightFlush, isFourOfAKind, isFullHouse, isFlush, isStraight,
 isThreeOfAKind,isTwoPairs, isOnePair, highestCard]
+
+def getHandValue(hand):
+	for func in orderOfHands:
+		if func(hand) != False:
+			best = orderOfHands.index(func)
+			return (best, func(hand)[1])
 
 f = open('pb_54_data.txt', 'r')
 
@@ -192,11 +194,13 @@ for oneRound in allHands:
 		win1 = False
 		i = 0
 		while win1 == False and i<5:
-			index1 = orderOfCards.index[hand1[i]]
-			index2 = orderOfCards.index[hand2[i]]
+			index1 = orderOfCards.index(hand1[i])
+			index2 = orderOfCards.index(hand2[i])
 			if index1 < index2:
 				win1 = True
 				player1Wins += 1
+			elif index1 > index2:
+				break
 			i = i+1
 
 
